@@ -12,17 +12,21 @@ import { FormsModule } from '@angular/forms';
 export class TodoComponent {
   tasks: {name: string, completed: boolean}[] = [];
   newTask: string = '';
+  inputError: boolean = false;
 
   constructor(){
     this.loadTasksFromLocalStorage();
   }
 
   addTask(){
-    if(this.newTask.trim()){
-      this.tasks.push({name: this.newTask, completed: false});
-      this.newTask = '';
-      this.saveTasksToLocalStorage();
+    if(!this.newTask.trim()){
+      this.inputError = true;
+      return;
     }
+    this.inputError = false;
+    this.tasks.push({name: this.newTask, completed: false});
+    this.newTask = '';
+    this.saveTasksToLocalStorage();
   }
 
   deleteTask(index: number){
@@ -44,6 +48,15 @@ export class TodoComponent {
     if(storedTasks){
       this.tasks = JSON.parse(storedTasks);
     }
+  }
+
+  clearCompletedTasks(){
+    this.tasks = this.tasks.filter(task => !task.completed);
+    this.saveTasksToLocalStorage();
+  }
+
+  get hasCompletedTasks(): boolean {
+    return this.tasks.some(task => task.completed);
   }
 
 }
