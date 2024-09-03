@@ -10,9 +10,11 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './todo.component.css'
 })
 export class TodoComponent {
-  tasks: {name: string, completed: boolean}[] = [];
+  tasks: {name: string, completed: boolean, category: string}[] = [];
   newTask: string = '';
-  inputError: boolean = false;
+  inputError: string = '';
+  selectedCategory: string = 'General';
+  categories: string[] = ['General', 'Work', 'Personal', 'Urgent'];
 
   constructor(){
     this.loadTasksFromLocalStorage();
@@ -20,11 +22,11 @@ export class TodoComponent {
 
   addTask(){
     if(!this.newTask.trim()){
-      this.inputError = true;
+      this.inputError = 'Task cannot be empty!';
       return;
     }
-    this.inputError = false;
-    this.tasks.push({name: this.newTask, completed: false});
+    this.inputError = '';
+    this.tasks.push({name: this.newTask, completed: false, category: this.selectedCategory});
     this.newTask = '';
     this.saveTasksToLocalStorage();
   }
