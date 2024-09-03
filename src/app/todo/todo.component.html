@@ -6,7 +6,7 @@
     <select [(ngModel)]="selectedCategory" class="border p-2 ml-2">
       <option *ngFor="let category of categories" [value]="category">{{category}}</option>
     </select>
-    <button class="bg-green-800 text-white px-3 py-2 rounded ml-2" (click)="addTask()">Add</button>
+    <button class="bg-gradient-to-r from-emerald-800 to-green-900 text-white px-3 py-2 rounded ml-2 hover" (click)="addTask()">Add</button>
   </div>
 
   <div *ngIf="inputError" class="text-red-500 mb-4">{{inputError}}</div>
@@ -25,13 +25,13 @@
       
       <div>
         <button
-          class="bg-yellow-500 text-white p-1 rounded mr-2"
+          class="bg-gradient-to-r from-red-600 to-red-700 text-white p-1 rounded mr-2"
           (click)="deleteTask(i)"
         >
           Delete
         </button>
         <button
-          class="bg-red-500 text-white p-1 rounded"
+          class="bg-gradient-to-r from-yellow-500 to-amber-500 text-white p-1 rounded"
           (click)="toggleCompletion(i)"
         >
           {{ task.completed ? "Undo" : "Complete" }}
@@ -42,7 +42,7 @@
   <button
     *ngIf="hasCompletedTasks"
     (click)="clearCompletedTasks()"
-    class="bg-red-500 text-white p-2 rounded mb-4"
+    class="bg-gradient-to-r from-red-600 to-red-700 text-white p-2 rounded mb-4"
   >
     Clear Completed Tasks
   </button>
