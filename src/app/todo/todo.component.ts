@@ -10,13 +10,22 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './todo.component.css'
 })
 export class TodoComponent {
-  tasks: string[] = [];
+  tasks: {name: string, completed: boolean}[] = [];
   newTask: string = '';
 
   addTask(){
     if(this.newTask.trim()){
-      this.tasks.push(this.newTask);
+      this.tasks.push({name: this.newTask, completed: false});
       this.newTask = '';
     }
   }
+
+  deleteTask(index: number){
+    this.tasks.splice(index, 1);
+  }
+
+  toggleCompletion(index: number){
+    this.tasks[index].completed = !this.tasks[index].completed;
+  }
+
 }
