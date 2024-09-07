@@ -14,7 +14,8 @@ export class TodoComponent {
   newTask: string = '';
   inputError: string = '';
   selectedCategory: string = 'General';
-  categories: string[] = ['General', 'Work', 'Personal', 'Urgent'];
+  categories: string[] = ['General', 'Work', 'Personal', 'Home', 'Fitness', 'Learning', 'Shopping', 'Hobbies', 'Health', 'Social', 'Travel'];
+  filterCategory: string = 'All';
 
   constructor(){
     this.loadTasksFromLocalStorage();
@@ -59,6 +60,13 @@ export class TodoComponent {
 
   get hasCompletedTasks(): boolean {
     return this.tasks.some(task => task.completed);
+  }
+
+  getFilteredTasks(){
+    if(this.filterCategory==='All'){
+      return this.tasks;
+    }
+    return this.tasks.filter(task => task.category === this.filterCategory);
   }
 
 }

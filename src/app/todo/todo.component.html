@@ -9,11 +9,19 @@
     <button class="bg-gradient-to-r from-emerald-800 to-green-900 text-white px-3 py-2 rounded ml-2 hover" (click)="addTask()">Add</button>
   </div>
 
+  <div class="mb-4">
+    <label for="filter" class="mr-2">Filter by Category:</label>
+    <select id="filter" [(ngModel)]="filterCategory" class="border p-2">
+      <option value="All">All</option>
+      <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+    </select>
+  </div>
+
   <div *ngIf="inputError" class="text-red-500 mb-4">{{inputError}}</div>
 
   <ul>
     <li
-      *ngFor="let task of tasks; let i = index"
+      *ngFor="let task of getFilteredTasks(); let i = index"
       class="bg-white text-lg p-4 mb-2 rounded shadow flex justify-between items-center"
     >
     <div>
