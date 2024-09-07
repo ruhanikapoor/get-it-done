@@ -23,17 +23,17 @@
   <ul>
     <li
       *ngFor="let task of getFilteredTasks(); let i = index"
-      class="bg-white text-lg p-4 mb-2 rounded shadow flex flex-col md:flex-row justify-between items-center"
+      class="bg-white text-lg p-4 mb-2 rounded shadow flex flex-col md:flex-row justify-between md:items-center"
     >
       <div class="flex-1">
         <div [ngClass]="{ 'line-through text-gray-500': task.completed }">{{ task.name }}</div>
-        <div class="ml-2 text-gray-500 text-xs">{{ task.category }}</div>
-        <div class="ml-2 text-gray-500 text-xs">Added: {{ task.dateAdded | date:'medium' }}</div>
-        <div class="ml-2 text-gray-500 text-xs">Modified: {{ task.dateModified | date: 'medium' }}</div>
+        <div class="text-gray-500 text-xs">{{ task.category }}</div>
+        <div class="text-gray-500 text-xs">Added: {{ task.dateAdded | date:'medium' }}</div>
+        <div class="text-gray-500 text-xs">Modified: {{ task.dateModified | date: 'medium' }}</div>
         <div *ngIf="task.deadline" class="ml-2 text-red-500 text-sm">Deadline: {{ task.deadline | date: 'MMM d, y' }}</div>
       </div>
       
-      <div class="flex mt-2 md:mt-0">
+      <div class="flex mt-2 md:mt-0 justify-end">
         <button
           class="bg-gradient-to-r from-red-600 to-red-700 text-white p-1 rounded mr-2"
           (click)="deleteTask(i)"
