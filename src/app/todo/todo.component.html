@@ -6,6 +6,7 @@
     <select [(ngModel)]="selectedCategory" class="border p-2 ml-2">
       <option *ngFor="let category of categories" [value]="category">{{category}}</option>
     </select>
+    <input type="date" [(ngModel)]="newDeadline" class="border p-2 ml-2" />
     <button class="bg-gradient-to-r from-emerald-800 to-green-900 text-white px-3 py-2 rounded ml-2 hover" (click)="addTask()">Add</button>
   </div>
 
@@ -25,10 +26,13 @@
       class="bg-white text-lg p-4 mb-2 rounded shadow flex justify-between items-center"
     >
     <div>
-      <span [ngClass]="{ 'line-through text-gray-500': task.completed }">{{
+      <div [ngClass]="{ 'line-through text-gray-500': task.completed }">{{
         task.name
-      }}</span>
-      <span class="ml-2 text-gray-500 text-xs">{{ task.category }}</span>
+      }}</div>
+      <div class="ml-2 text-gray-500 text-xs">{{ task.category }}</div>
+      <div class="ml-2 text-gray-500 text-xs">Added: {{ task.dateAdded | date:'medium' }}</div>
+      <div class="ml-2 text-gray-500 text-xs">Modified: {{ task.dateModified | date: 'medium' }}</div>
+      <div *ngIf="task.deadline" class="ml-2 text-red-500">Deadline: {{ task.deadline | date: 'MMM d, y' }}</div>
     </div>
       
       <div>
