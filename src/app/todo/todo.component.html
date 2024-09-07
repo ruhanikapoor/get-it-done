@@ -57,7 +57,7 @@
         <div class="text-gray-500 text-xs">{{ task.category }}</div>
         <div class="text-gray-500 text-xs">Added: {{ task.dateAdded | date:'medium' }}</div>
         <div class="text-gray-500 text-xs">Modified: {{ task.dateModified | date: 'medium' }}</div>
-        <div *ngIf="task.deadline" class="ml-2 text-red-500 text-sm">Deadline: {{ task.deadline | date: 'MMM d, y' }}</div>
+        <div *ngIf="task.deadline" class="text-red-500 text-sm">Deadline: {{ task.deadline | date: 'MMM d, y' }}</div>
       </div>
 
       <div class="flex mt-2 md:mt-0 justify-end">
