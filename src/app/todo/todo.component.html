@@ -1,18 +1,45 @@
-<div class="container mx-auto p-4 sm:p-6 md:p-8 lg:p-10">
-  <h2 class="text-2xl font-bold mb-4 text-center md:text-left">My To-do List</h2>
+<div class="container min-h-screen min-w-full mx-auto p-4 sm:p-6 md:p-8 lg:p-10 dark:bg-gray-900 dark:text-white">
+  
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-2xl font-bold mb-4 text-center md:text-left">My To-do List</h2>
+    <button (click)="toggleDarkMode()" class="p-2 rounded text-2xl">
+      <span *ngIf="isDarkMode">☀️</span>
+      <span *ngIf="!isDarkMode">🌙</span>
+    </button>
+  </div>
 
   <div class="mb-4 flex flex-col md:flex-row md:items-center">
-    <input [(ngModel)]="newTask" placeholder="New task" class="border border-gray-500 rounded-sm p-2 mb-2 md:mb-0 md:mr-2 flex-1" />
-    <select [(ngModel)]="selectedCategory" class="border p-2 mb-2 md:mb-0 md:mr-2 flex-1">
+    <input
+      [(ngModel)]="newTask"
+      placeholder="New task"
+      class="border border-gray-500 rounded-sm p-2 mb-2 md:mb-0 md:mr-2 flex-1 dark:bg-gray-800 dark:text-white"
+    />
+    <select
+      [(ngModel)]="selectedCategory"
+      class="border p-2 mb-2 md:mb-0 md:mr-2 flex-1 dark:bg-gray-800 dark:text-white"
+    >
       <option *ngFor="let category of categories" [value]="category">{{category}}</option>
     </select>
-    <input type="date" [(ngModel)]="newDeadline" class="border p-2 mb-2 md:mb-0 md:mr-2 flex-1 w-full" />
-    <button class="bg-gradient-to-r from-emerald-800 to-green-900 text-white px-3 py-2 rounded mt-2 md:mt-0 md:ml-2 hover:bg-green-700 transition-all" (click)="addTask()">Add</button>
+    <input
+      type="date"
+      [(ngModel)]="newDeadline"
+      class="border p-2 mb-2 md:mb-0 md:mr-2 flex-1 w-full dark:bg-gray-800 dark:text-white"
+    />
+    <button
+      class="bg-gradient-to-r from-emerald-800 to-green-900 text-white px-3 py-2 rounded mt-2 md:mt-0 md:ml-2 hover:bg-green-700 transition-all"
+      (click)="addTask()"
+    >
+      Add
+    </button>
   </div>
 
   <div class="mb-4 flex flex-row items-center">
     <label for="filter" class="mr-2 mb-2 md:mb-0">Filter by Category:</label>
-    <select id="filter" [(ngModel)]="filterCategory" class="border p-2">
+    <select
+      id="filter"
+      [(ngModel)]="filterCategory"
+      class="border p-2 dark:bg-gray-800 dark:text-white"
+    >
       <option value="All">All</option>
       <option *ngFor="let category of categories" [value]="category">{{category}}</option>
     </select>
@@ -23,7 +50,7 @@
   <ul>
     <li
       *ngFor="let task of getFilteredTasks(); let i = index"
-      class="bg-white text-lg p-4 mb-2 rounded shadow flex flex-col md:flex-row justify-between md:items-center"
+      class="bg-white text-lg p-4 mb-2 rounded shadow flex flex-col md:flex-row justify-between md:items-center dark:bg-gray-800 dark:text-white"
     >
       <div class="flex-1">
         <div [ngClass]="{ 'line-through text-gray-500': task.completed }">{{ task.name }}</div>
@@ -32,23 +59,18 @@
         <div class="text-gray-500 text-xs">Modified: {{ task.dateModified | date: 'medium' }}</div>
         <div *ngIf="task.deadline" class="ml-2 text-red-500 text-sm">Deadline: {{ task.deadline | date: 'MMM d, y' }}</div>
       </div>
-      
+
       <div class="flex mt-2 md:mt-0 justify-end">
-        <button
-          class="bg-gradient-to-r from-red-600 to-red-700 text-white p-1 rounded mr-2"
-          (click)="deleteTask(i)"
-        >
+        <button class="bg-gradient-to-r from-red-600 to-red-700 text-white p-1 rounded mr-2" (click)="deleteTask(i)">
           Delete
         </button>
-        <button
-          class="bg-gradient-to-r from-yellow-500 to-amber-500 text-white p-1 rounded"
-          (click)="toggleCompletion(i)"
-        >
-          {{ task.completed ? "Undo" : "Complete" }}
+        <button class="bg-gradient-to-r from-yellow-500 to-amber-500 text-white p-1 rounded" (click)="toggleCompletion(i)">
+          {{ task.completed ? "Undo" : "Done" }}
         </button>
       </div>
     </li>
   </ul>
+
   <button
     *ngIf="hasCompletedTasks"
     (click)="clearCompletedTasks()"

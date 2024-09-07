@@ -43,6 +43,7 @@ export class TodoComponent {
 
   newDeadline: Date | null = null;
 
+  isDarkMode: boolean = false;
 
   constructor() {
     this.loadTasksFromLocalStorage();
@@ -108,5 +109,25 @@ export class TodoComponent {
       return this.tasks;
     }
     return this.tasks.filter((task) => task.category === this.filterCategory);
+  }
+
+  toggleDarkMode() {
+    const htmlElement = document.documentElement;
+    if (htmlElement.classList.contains('dark')) {
+      htmlElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    } else {
+      htmlElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    }
+    this.isDarkMode = !this.isDarkMode;
+  }
+
+  ngOnInit() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+      this.isDarkMode = savedTheme === 'dark';
+    }
   }
 }
