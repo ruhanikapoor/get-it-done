@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -42,6 +42,7 @@ export class TodoComponent {
   filterCategory: string = 'All';
 
   newDeadline: Date | null = null;
+
 
   constructor() {
     this.loadTasksFromLocalStorage();
