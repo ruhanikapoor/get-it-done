@@ -54,7 +54,7 @@ Get It Done is a simple yet functional To-Do List app built using Angular.
 
 ### 5. Clear Completed Tasks:
 
-- Click the "Clear Completed" button to remove all completed tasks.
+- Click the "Clear Completed Tasks" button to remove all completed tasks.
 
 ### 6. Toggle Dark Mode:
 
