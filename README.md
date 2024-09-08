@@ -25,8 +25,6 @@ Get It Done is a simple yet functional To-Do List app built using Angular.
 
 - **Tailwind CSS**: Utility-first CSS framework for styling the app.
 
-
-
 ## Usage
 ### 1. Adding a Task:
 
