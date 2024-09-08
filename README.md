@@ -1,27 +1,79 @@
-# GetItDone
+# Get It Done
+Get It Done is a simple yet functional To-Do List app built using Angular.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.2.
+## Features
+- **Add Tasks**: Add tasks with a name, category, and optional deadline.
 
-## Development server
+- **Update Tasks**: Automatically tracks when tasks are modified.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Delete Tasks**: Remove tasks from the list.
 
-## Code scaffolding
+- **Toggle Completion**: Mark tasks as complete or incomplete.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Filter by Category**: Filter tasks by selected categories.
 
-## Build
+- **Clear Completed Tasks**: Remove all completed tasks in one go.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- **Deadline Support**: Set deadlines for tasks and display them with a distinct color.
 
-## Running unit tests
+- **Dark Mode**: Toggle between dark and light themes.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- **Local Storage Persistence**: All tasks and theme preferences are saved in the browser's local storage.
 
-## Running end-to-end tests
+## Technologies Used
+- **Angular**: Core framework for building the app.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- **Tailwind CSS**: Utility-first CSS framework for styling the app.
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## Usage
+### 1. Adding a Task:
+
+- Enter the task name in the input field.
+
+- Select a category from the dropdown.
+
+- Optionally, set a deadline.
+
+- Click "Add Task" to add it to the list.
+
+### 2. Mark Task as Done/Undo:
+
+- Click the "Done" button to mark a task as completed.
+
+- Click "Undo" to mark it as incomplete.
+
+### 3. Delete Task:
+
+- Click the "Delete" button to remove a task from the list.
+
+### 4. Filtering Tasks:
+
+- Use the category filter to display tasks from a specific category.
+
+### 5. Clear Completed Tasks:
+
+- Click the "Clear Completed" button to remove all completed tasks.
+
+### 6. Toggle Dark Mode:
+
+- Click the dark mode button (icon) to switch between dark and light themes.
+
+### 7. Persistence:
+
+- Tasks and theme preferences are automatically saved and will be available when you reload the page.
+
+
+## Future Enhancements
+- **Task Prioritization**: Adding a priority option for tasks (Low, Medium, High).
+
+- **Sub-tasks**: Enable adding sub-tasks for each task.
+
+- **Notifications**: Push notifications for task deadlines.
+
+- **Drag and Drop**: Reorder tasks using drag-and-drop functionality.
+
+## Try It Here
+
+[Get It Done](http://getitdonetodo.netlify.app/)
