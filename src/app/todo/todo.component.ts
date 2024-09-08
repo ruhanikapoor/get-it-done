@@ -2,6 +2,15 @@ import { Component, HostBinding } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+interface Task {
+  name: string;
+  category: string;
+  completed: boolean;
+  dateAdded: Date;
+  dateModified: Date;
+  deadline?: Date | null; // Optional property
+}
+
 @Component({
   selector: 'app-todo',
   standalone: true,
@@ -10,14 +19,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './todo.component.css',
 })
 export class TodoComponent {
-  tasks: {
-    name: string;
-    completed: boolean;
-    category: string;
-    dateAdded: Date;
-    dateModified: Date;
-    deadline: Date | null;
-  }[] = [];
+  tasks: Task[] = [];
 
   newTask: string = '';
 
@@ -49,12 +51,16 @@ export class TodoComponent {
     this.loadTasksFromLocalStorage();
   }
 
+  ngOnInit() {
+    this.initializeTheme();
+  }
+
   addTask() {
     if (!this.newTask.trim()) {
       this.inputError = 'Task cannot be empty!';
       return;
     }
-    this.inputError = '';
+
     this.tasks.push({
       name: this.newTask,
       completed: false,
@@ -63,9 +69,8 @@ export class TodoComponent {
       dateModified: new Date(),
       deadline: this.newDeadline || null,
     });
-    this.newTask = '';
-    this.newDeadline = null;
-    this.inputError = '';
+
+    this.resetTaskInput();
     this.saveTasksToLocalStorage();
   }
 
@@ -74,25 +79,15 @@ export class TodoComponent {
     this.saveTasksToLocalStorage();
   }
 
-  deleteTask(index: number) {
-    this.tasks.splice(index, 1);
+  deleteTask(task: Task) {
+    this.tasks = this.tasks.filter((t) => t !== task);
     this.saveTasksToLocalStorage();
   }
 
-  toggleCompletion(index: number) {
-    this.tasks[index].completed = !this.tasks[index].completed;
-    this.updateTask(index);
-  }
-
-  saveTasksToLocalStorage() {
-    localStorage.setItem('tasks', JSON.stringify(this.tasks));
-  }
-
-  loadTasksFromLocalStorage() {
-    const storedTasks = localStorage.getItem('tasks');
-    if (storedTasks) {
-      this.tasks = JSON.parse(storedTasks);
-    }
+  toggleCompletion(task: Task) {
+    task.completed = !task.completed;
+    task.dateModified = new Date();
+    this.saveTasksToLocalStorage();
   }
 
   clearCompletedTasks() {
@@ -104,30 +99,42 @@ export class TodoComponent {
     return this.tasks.some((task) => task.completed);
   }
 
-  getFilteredTasks() {
-    if (this.filterCategory === 'All') {
-      return this.tasks;
-    }
-    return this.tasks.filter((task) => task.category === this.filterCategory);
+  getFilteredTasks(): Task[] {
+    return this.filterCategory === 'All'
+      ? this.tasks
+      : this.tasks.filter((task) => task.category === this.filterCategory);
   }
 
   toggleDarkMode() {
     const htmlElement = document.documentElement;
-    if (htmlElement.classList.contains('dark')) {
-      htmlElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    } else {
-      htmlElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    }
-    this.isDarkMode = !this.isDarkMode;
+    const newTheme = htmlElement.classList.contains('dark') ? 'light' : 'dark';
+    htmlElement.classList.toggle('dark', newTheme === 'dark');
+    localStorage.setItem('theme', newTheme);
+    this.isDarkMode = newTheme === 'dark';
   }
 
-  ngOnInit() {
+  private initializeTheme() {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
       document.documentElement.classList.add('dark');
-      this.isDarkMode = savedTheme === 'dark';
+      this.isDarkMode = true;
+    }
+  }
+
+  private resetTaskInput() {
+    this.newTask = '';
+    this.newDeadline = null;
+    this.inputError = '';
+  }
+
+  private saveTasksToLocalStorage() {
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+  }
+
+  private loadTasksFromLocalStorage() {
+    const storedTasks = localStorage.getItem('tasks');
+    if (storedTasks) {
+      this.tasks = JSON.parse(storedTasks);
     }
   }
 }
